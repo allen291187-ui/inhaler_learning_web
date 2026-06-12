@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PGY藥師醫病溝通情境學習系統 v3.2</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">PGY 藥師互動學習</div>
+      <h1>吸入劑衛教<br/>溝通技巧</h1>
+      <div class="progressWrap">
+        <div class="progressText" id="progressText">準備開始</div>
+        <div class="bar"><div id="barFill"></div></div>
+      </div>
+      <ol id="stepList" class="steps"></ol>
+      <button id="restartBtn" class="ghost">重新開始</button>
+      <p class="note">教學用途｜請勿上傳病人個資或院內敏感資料</p>
+    </aside>
+
+    <main class="main">
+      <section id="card" class="card"></section>
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
