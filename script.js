@@ -12,6 +12,7 @@ const barFill = document.getElementById('barFill');
 const sidebar = document.getElementById('sidebar');
 const mobileNavBtn = document.getElementById('mobileNavBtn');
 const sidebarOverlay = document.getElementById('sidebarOverlay');
+const mobileNavClose = document.getElementById('mobileNavClose');
 
 function isMobileNav(){ return window.matchMedia('(max-width: 850px)').matches; }
 function openMobileNav(){
@@ -30,6 +31,7 @@ function closeMobileNav(){
 function toggleMobileNav(){ sidebar.classList.contains('mobile-open') ? closeMobileNav() : openMobileNav(); }
 mobileNavBtn.addEventListener('click', toggleMobileNav);
 sidebarOverlay.addEventListener('click', closeMobileNav);
+if(mobileNavClose) mobileNavClose.addEventListener('click', closeMobileNav);
 window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMobileNav(); });
 window.addEventListener('resize', ()=>{ if(!isMobileNav()) closeMobileNav(); });
 

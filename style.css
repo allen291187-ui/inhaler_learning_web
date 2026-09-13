@@ -158,3 +158,65 @@
   h2{font-size:24px;}
   button{font-size:16px;}
 }
+
+
+/* v3.9.1 mobile hotfix: force drawer behavior and avoid stale GitHub Pages assets */
+.mobile-nav-close{display:none;}
+@media (max-width:850px){
+  .mobile-nav-btn{
+    display:flex !important;
+    position:sticky !important;
+    top:0 !important;
+    z-index:1400 !important;
+    width:100% !important;
+    background:#15345f !important;
+    color:#fff !important;
+  }
+  #sidebar.sidebar{
+    display:flex !important;
+    position:fixed !important;
+    top:0 !important;
+    bottom:0 !important;
+    left:0 !important;
+    right:auto !important;
+    width:min(88vw,340px) !important;
+    height:100dvh !important;
+    min-height:0 !important;
+    margin:0 !important;
+    z-index:1600 !important;
+    transform:translate3d(-110%,0,0) !important;
+    transition:transform .24s ease !important;
+    overflow:hidden !important;
+  }
+  #sidebar.sidebar.mobile-open{transform:translate3d(0,0,0) !important;}
+  .sidebar-overlay{
+    display:block !important;
+    position:fixed !important;
+    inset:0 !important;
+    z-index:1500 !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+  .sidebar-overlay.show{
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+  }
+  .mobile-nav-close{
+    display:block;
+    align-self:flex-end;
+    flex:0 0 auto;
+    margin:0 0 6px;
+    padding:7px 10px;
+    border:1px solid rgba(255,255,255,.55);
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    font-size:15px;
+    border-radius:10px;
+  }
+  .main{margin-left:0 !important;width:100% !important;}
+}
+@media (min-width:851px){
+  .mobile-nav-btn,.sidebar-overlay,.mobile-nav-close{display:none !important;}
+}
