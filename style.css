@@ -6,3 +6,66 @@
 .steps li{cursor:pointer;transition:.15s}
 .steps li:hover{background:rgba(255,255,255,.25);opacity:1}
 .steps li.active:hover{background:white}
+.feedback.review{background:#fff8e7;border:1px solid #f3d28b}.record-list{display:grid;gap:18px;margin-top:22px}.record{background:#f8fafc;border:1px solid #dce4ef;border-radius:16px;padding:18px;line-height:1.65}.record p{margin:10px 0}.record-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:1px solid #e5eaf2;padding-bottom:10px;margin-bottom:10px}.record-head small{color:#667085;white-space:nowrap}@media print{body{background:white!important}.sidebar,.no-print{display:none!important}.app{display:block!important}.main{padding:0!important}.card{box-shadow:none!important;border:0!important;max-width:none!important}.record{break-inside:avoid;background:white!important}.tag{background:white!important;color:#111!important;border:1px solid #999}.record-head small{color:#333}button{display:none!important}}
+
+/* v3.8 readability + sidebar viewport fix */
+/* Match communication-skill body text to the case-practice reading size. */
+.skill-view .purpose,
+.skill-view blockquote{
+  font-size:18px;
+  line-height:1.7;
+}
+.skill-view h3{font-size:20px;}
+
+/* Keep restart/privacy controls visible while allowing the menu itself to scroll. */
+.sidebar{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.sidebar .brand,
+.sidebar h1,
+.sidebar .progressWrap,
+.sidebar #restartBtn,
+.sidebar .note{flex:0 0 auto;}
+.sidebar .steps{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding-right:4px;
+  margin:20px 0 14px;
+}
+.sidebar #restartBtn{
+  width:100%;
+  margin-top:4px;
+}
+.sidebar .note{
+  position:static;
+  margin:12px 0 0;
+  font-size:12px;
+  line-height:1.5;
+}
+
+@media(max-height:760px) and (min-width:851px){
+  .sidebar{padding:22px 26px;}
+  .sidebar h1{font-size:28px;margin:18px 0;}
+  .steps li{padding:9px 12px;margin:6px 0;}
+  .sidebar .steps{margin:14px 0 10px;}
+  .progressText{font-size:14px;}
+}
+
+@media(max-width:850px){
+  .sidebar{
+    width:auto;
+    min-height:100svh;
+    height:100svh;
+    position:sticky;
+    top:0;
+    padding:24px;
+  }
+  .sidebar h1{font-size:30px;margin:20px 0;}
+  .sidebar .steps{margin:18px 0 12px;}
+  .steps li{padding:10px 12px;margin:6px 0;}
+  .sidebar .note{margin-top:10px;}
+}
