@@ -9,7 +9,31 @@ const card = document.getElementById('card');
 const stepList = document.getElementById('stepList');
 const progressText = document.getElementById('progressText');
 const barFill = document.getElementById('barFill');
-document.getElementById('restartBtn').onclick = restart;
+const sidebar = document.getElementById('sidebar');
+const mobileNavBtn = document.getElementById('mobileNavBtn');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+function isMobileNav(){ return window.matchMedia('(max-width: 850px)').matches; }
+function openMobileNav(){
+  if(!isMobileNav()) return;
+  sidebar.classList.add('mobile-open');
+  sidebarOverlay.classList.add('show');
+  document.body.classList.add('mobile-nav-open');
+  mobileNavBtn.setAttribute('aria-expanded','true');
+}
+function closeMobileNav(){
+  sidebar.classList.remove('mobile-open');
+  sidebarOverlay.classList.remove('show');
+  document.body.classList.remove('mobile-nav-open');
+  mobileNavBtn.setAttribute('aria-expanded','false');
+}
+function toggleMobileNav(){ sidebar.classList.contains('mobile-open') ? closeMobileNav() : openMobileNav(); }
+mobileNavBtn.addEventListener('click', toggleMobileNav);
+sidebarOverlay.addEventListener('click', closeMobileNav);
+window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMobileNav(); });
+window.addEventListener('resize', ()=>{ if(!isMobileNav()) closeMobileNav(); });
+
+document.getElementById('restartBtn').onclick = ()=>{ closeMobileNav(); restart(); };
 
 function saveState(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {} }
 function loadState(){
@@ -36,7 +60,7 @@ function coreCasesDone(){ return state.mode!=='initial' || (state.selectedCases.
 function goCaseMap(){ preserveReturnPoint(); if(state.mode==='initial' && state.selectedCases.length===2 && !coreCasesDone()){ continueMainCases(); return; } if(state.mode==='initial' && state.selectedCases.length===0){ state.screen='quiz'; state.quizIndex=Math.min(state.quizIndex, COURSE.quiz.length-1); render(); return; } state.screen='map'; render(); }
 function goCasePractice(){ if(['caseIntro','caseQ','caseSummary'].includes(state.screen)){render();return;} if(state.returnTo){restoreReturnPoint();return;} if(state.selectedCases?.length && state.mode==='initial' && !coreCasesDone()){continueMainCases();return;} state.screen='map';render(); }
 function goFinish(){ preserveReturnPoint(); if(state.mode==='initial' && state.selectedCases.length===2 && !coreCasesDone()){continueMainCases();return;} state.screen='finish'; render(); }
-function goStep(i){ const actions=[goCourseIntro,goSkills,goQuiz,goCaseMap,goCasePractice,goFinish]; if(actions[i]) actions[i](); }
+function goStep(i){ closeMobileNav(); const actions=[goCourseIntro,goSkills,goQuiz,goCaseMap,goCasePractice,goFinish]; if(actions[i]) actions[i](); }
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-0.5); }
 function btn(text,fn,cls='primary'){ return `<button class="${cls}" onclick="${fn}">${text}</button>`; }
@@ -129,5 +153,5 @@ function renderRecords(){
   setSteps(5); const rows=state.answerRecords.length?state.answerRecords.map((r,i)=>`<article class="record"><div class="record-head"><b>${i+1}. ${esc(r.section)}${r.caseName?`｜${esc(r.caseName)}`:''}</b><small>${esc(r.time)}</small></div><p><b>題目：</b>${esc(r.prompt)}</p><p><b>我的回答：</b><br>${esc(r.answer)}</p>${r.reference?`<p><b>${r.type==='short'?'較佳說法':'參考答案'}：</b><br>${esc(r.reference)}</p>`:''}${r.feedback?`<p><b>學習重點：</b>${esc(r.feedback)}</p>`:''}${r.skills?.length?`<p><b>相關技巧：</b>${r.skills.map(esc).join('、')}</p>`:''}</article>`).join(''):`<div class="notice">目前還沒有作答紀錄。</div>`;
   card.innerHTML=`<div class="tag">🧾 作答紀錄</div><h2>我的學習與作答紀錄</h2><p class="lead">此頁整理本次實際作答內容，可提供教師後續回饋討論。開放性問答不判定對錯。</p><div class="record-list">${rows}</div><div class="actions no-print"><button class="primary" onclick="window.print()">列印／另存 PDF</button><button class="ghost" onclick="state.screen='finish';render();">返回學習成果</button></div>`;
 }
-function restart(){state=defaultState();clearSavedState();render();}
+function restart(){closeMobileNav();state=defaultState();clearSavedState();render();}
 if(!loadState())state=defaultState(); render();

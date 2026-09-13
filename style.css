@@ -69,3 +69,92 @@
   .steps li{padding:10px 12px;margin:6px 0;}
   .sidebar .note{margin-top:10px;}
 }
+
+
+/* v3.9 mobile navigation / responsive layout */
+.mobile-nav-btn,
+.sidebar-overlay{display:none;}
+
+@media(max-width:850px){
+  body{overflow-x:hidden;}
+  .app{display:block;min-height:100svh;}
+  .mobile-nav-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:sticky;
+    top:0;
+    z-index:1200;
+    width:100%;
+    min-height:56px;
+    border-radius:0;
+    background:#15345f;
+    color:#fff;
+    box-shadow:0 4px 14px rgba(15,23,42,.16);
+    font-size:17px;
+    font-weight:800;
+    padding:12px 18px;
+  }
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1300;
+    width:min(86vw,340px);
+    height:100svh;
+    min-height:0;
+    padding:22px 20px;
+    transform:translateX(-105%);
+    transition:transform .24s ease;
+    box-shadow:12px 0 32px rgba(15,23,42,.25);
+  }
+  .sidebar.mobile-open{transform:translateX(0);}
+  .sidebar-overlay{
+    display:block;
+    position:fixed;
+    inset:0;
+    z-index:1250;
+    background:rgba(15,23,42,.48);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .sidebar-overlay.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+  body.mobile-nav-open{overflow:hidden;}
+  .sidebar h1{font-size:28px;margin:16px 0;}
+  .sidebar .steps{margin:14px 0 10px;}
+  .steps li{padding:10px 12px;margin:5px 0;}
+  .main{
+    width:100%;
+    padding:16px 12px 28px;
+    gap:12px;
+  }
+  .card{
+    width:100%;
+    padding:22px 18px;
+    border-radius:18px;
+  }
+  h2{font-size:26px;line-height:1.35;}
+  .lead,.purpose,blockquote,.feedback{font-size:17px;}
+  .option{width:100%;font-size:16px;padding:12px 14px;gap:12px;}
+  .option span{min-width:30px;height:30px;}
+  textarea{font-size:16px;min-height:130px;}
+  select{font-size:16px;width:100%;}
+  .match{grid-template-columns:1fr;padding:14px;}
+  .actions{gap:10px;margin-top:22px;}
+  .actions button{flex:1 1 100%;width:100%;}
+  .case-list{grid-template-columns:1fr;}
+  .record-head{display:block;}
+  .record-head small{display:block;margin-top:6px;white-space:normal;}
+}
+
+@media(max-width:420px){
+  .mobile-nav-btn{font-size:16px;min-height:52px;}
+  .main{padding:12px 8px 24px;}
+  .card{padding:20px 14px;border-radius:16px;}
+  h2{font-size:24px;}
+  button{font-size:16px;}
+}
